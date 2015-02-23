@@ -12,7 +12,7 @@ public final class RSSConnection extends CommonUrlConnection {
 
     private static final RSSConnection instance = new RSSConnection();
     private static final Logger LOGGER = Logger.getLogger(RSSConnection.class.getName());
-    private static final String RSS_PROPERTIES = "rss.properties";
+    private static final String RSS_PROPERTIES = "co/malm/mglam_reads/backend/config/rss.properties";
     private static final String RSS_URL = "rss_url";
 
     PropertiesUtil propertyUtil = PropertiesUtil.getInstance();
@@ -31,6 +31,7 @@ public final class RSSConnection extends CommonUrlConnection {
 
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
+            e.printStackTrace();
         }
         return builder.toString();
     }

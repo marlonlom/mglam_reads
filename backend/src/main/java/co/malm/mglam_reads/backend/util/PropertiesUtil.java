@@ -15,7 +15,9 @@ public final class PropertiesUtil {
 
     public Properties readProps(String propertiesFile) throws Exception {
         Properties props = new Properties();
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(propertiesFile);
+        Thread currentThread = Thread.currentThread();
+        ClassLoader contextClassLoader = currentThread.getContextClassLoader();
+        InputStream inputStream = contextClassLoader.getResourceAsStream(propertiesFile);
         props.load(inputStream);
         return props;
     }
