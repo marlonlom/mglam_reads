@@ -4,33 +4,28 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 
-import java.util.logging.Logger;
-
-import co.malm.mglam_reads.backend.http.RSSConnection;
 import co.malm.mglam_reads.backend.model.FeedChannel;
+import co.malm.mglam_reads.backend.services.RssFeedService;
 
 /**
- * Created by marlonlom on 22/02/15.
+ * Cloud Endpoint API for Rss Feed contents with information of #MundoGlam
+ * fashion website
+ *
+ * @author marlonlom
  */
-@Api(
-        name = "mglamArticlesApi",
-        version = "v1",
-        namespace = @ApiNamespace(
-                ownerDomain = "endpoints.backend.mglam_reads.malm.co",
-                ownerName = "endpoints.backend.mglam_reads.malm.co",
-                packagePath = ""
-        )
-)
+@Api(name = "mglamArticlesApi", version = "v1", namespace = @ApiNamespace(ownerDomain = "endpoints.backend.mglam_reads.malm.co", ownerName = "endpoints.backend.mglam_reads.malm.co", packagePath = ""))
 public class FeedItemsEndpoint {
 
-    private static final Logger logger = Logger.getLogger(FeedItemsEndpoint.class.getName());
+    /**
+     * Service implementation
+     *
+     * @see co.malm.mglam_reads.backend.services.RssFeedService
+     */
+    private RssFeedService service = new RssFeedService();
 
-    @ApiMethod(name = "getArticles")
+    @ApiMethod(name = "getFeed")
     public FeedChannel getChannel() {
-        FeedChannel channel = new FeedChannel();
-        String retrievedFeed = RSSConnection.getInstance().retrieveFeed();
-        channel.setName(retrievedFeed);
-        return channel;
+        return service.obtainRssChannel();
     }
 
 }

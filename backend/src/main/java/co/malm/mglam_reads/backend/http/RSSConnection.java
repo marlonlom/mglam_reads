@@ -1,37 +1,34 @@
 package co.malm.mglam_reads.backend.http;
 
-import java.util.Properties;
 import java.util.logging.Logger;
 
-import co.malm.mglam_reads.backend.util.PropertiesUtil;
+import co.malm.mglam_reads.backend.rss.RssConfig;
 
 /**
- * Created by marlonlom on 22/02/15.
+ * @author marlonlom
  */
 public final class RSSConnection extends CommonUrlConnection {
 
-    private static final RSSConnection instance = new RSSConnection();
+    /**
+     * Logging utility
+     *
+     * @see java.util.logging.Logger
+     */
     private static final Logger LOGGER = Logger.getLogger(RSSConnection.class.getName());
-    private static final String RSS_PROPERTIES = "co/malm/mglam_reads/backend/config/rss.properties";
-    private static final String RSS_URL = "rss_url";
 
-    PropertiesUtil propertyUtil = PropertiesUtil.getInstance();
-
-    public static RSSConnection getInstance() {
-        return instance;
-    }
-
-    public String retrieveFeed() {
+    /**
+     * Obtain the contents of an XML RSS Feed using its url
+     *
+     * @return xml contents of the feed
+     */
+    public static String retrieveFeed() {
         StringBuilder builder = new StringBuilder("");
         try {
-            Properties readProps = propertyUtil.readProps(RSS_PROPERTIES);
-            String rssUrl = readProps.getProperty(RSS_URL);
 
-            performConnection(builder, rssUrl);
+            performHttpGET(builder, RssConfig.RSS_URL.getTagValue());
 
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
-            e.printStackTrace();
         }
         return builder.toString();
     }

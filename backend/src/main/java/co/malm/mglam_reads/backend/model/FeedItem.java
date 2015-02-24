@@ -17,6 +17,7 @@ public class FeedItem implements Serializable {
     private String pubDate;
 
     public FeedItem() {
+        this.setCategories(new ArrayList<String>());
     }
 
     public String getTitle() {

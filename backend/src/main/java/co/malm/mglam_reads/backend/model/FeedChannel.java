@@ -4,25 +4,29 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Created by marlonlom on 22/02/15.
+ * Model class for RSS channel definition
+ *
+ * @author marlonlom
  */
 public class FeedChannel implements Serializable {
 
-    private String name;
     private ArrayList<FeedItem> items;
     private ArrayList<String> categories;
 
     public FeedChannel() {
         super();
+        this.setItems(new ArrayList<FeedItem>());
+        this.setCategories(new ArrayList<String>());
     }
 
-    public FeedChannel(ArrayList<FeedItem> items) {
-        this.items = items;
+    public FeedChannel(ArrayList<FeedItem> feedItems) {
+        this.setItems((ArrayList<FeedItem>) feedItems.clone());
+        this.setCategories(new ArrayList<String>());
     }
 
-    public FeedChannel(ArrayList<FeedItem> items, ArrayList<String> categories) {
-        this.items = items;
-        this.categories = categories;
+    public FeedChannel(ArrayList<FeedItem> feedItems, ArrayList<String> feedCategories) {
+        this.setItems((ArrayList<FeedItem>) feedItems.clone());
+        this.setCategories((ArrayList<String>) feedCategories.clone());
     }
 
     public ArrayList<FeedItem> getItems() {
@@ -41,11 +45,4 @@ public class FeedChannel implements Serializable {
         this.categories = categories;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

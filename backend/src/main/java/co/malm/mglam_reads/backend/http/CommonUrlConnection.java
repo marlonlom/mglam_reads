@@ -7,13 +7,24 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by marlonlom on 22/02/15.
+ * Abstract class for defining common HTTP operations (GET,POST) for retrieve
+ * contents using defined URL
+ *
+ * @author marlonlom
  */
 public abstract class CommonUrlConnection {
 
     private static final String USER_AGENT = "Mozilla/5.0";
+    private static final Integer TIMEOUT = 10000;
 
-    public void performConnection(StringBuilder builder, String url) throws IOException {
+    /**
+     * Performs HTTP GET operation for retrieve contents using url
+     *
+     * @param builder string content builder
+     * @param url     for retrieve its contents
+     * @throws IOException if an error happens
+     */
+    protected static void performHttpGET(StringBuilder builder, String url) throws IOException {
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -22,10 +33,12 @@ public abstract class CommonUrlConnection {
 
         //add request header
         con.setRequestProperty("User-Agent", USER_AGENT);
+        //sets the connect deadline to 10 sec
+        con.setConnectTimeout(TIMEOUT);
+        //sets the read deadline to 10 Sec
+        con.setReadTimeout(TIMEOUT);
 
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
