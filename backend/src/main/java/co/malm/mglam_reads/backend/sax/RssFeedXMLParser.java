@@ -56,6 +56,12 @@ public class RssFeedXMLParser {
     public RssFeedXMLParser() {
     }
 
+    /**
+     * Parses xml content into an {@link co.malm.mglam_reads.backend.model.FeedChannel} instance
+     *
+     * @param xmlContents text to read/parse
+     * @see co.malm.mglam_reads.backend.model.FeedChannel
+     */
     public void performParsing(String xmlContents) {
         try {
             saxParser = factory.newSAXParser();

@@ -85,6 +85,7 @@ public class RssFeedHandler extends DefaultHandler {
         int minCount = 0;
         int maxCount = 0;
         if (!categories.isEmpty()) {
+            // obtains min and max values
             for (String k : categories.keySet()) {
                 Integer keyValue = categories.get(k);
                 if (Math.max(keyValue, maxCount) == keyValue) {
@@ -93,8 +94,11 @@ public class RssFeedHandler extends DefaultHandler {
                     minCount = keyValue;
                 }
             }
+
+            // calculate average
             double avgCount = (minCount + maxCount) / 2;
 
+            // add categories with score above average
             for (String k : categories.keySet()) {
                 Integer keyValue = categories.get(k);
                 if (Math.max(keyValue, avgCount) == keyValue) {
@@ -103,6 +107,7 @@ public class RssFeedHandler extends DefaultHandler {
                 }
             }
 
+            //Sorts categories list
             Collections.sort(getRssChannel().getCategories());
         }
     }
@@ -159,12 +164,13 @@ public class RssFeedHandler extends DefaultHandler {
         }
 
         if (isInItem && qName.equalsIgnoreCase(RssConfig.RSS_ITEM_CATEGORY.getTagValue())) {
-            getCurrentItem().getCategories().add(contentBuilder.toString());
-            if (!categories.containsKey(contentBuilder.toString())) {
-                categories.put(contentBuilder.toString(), 0);
+            String aCategory = contentBuilder.toString().toLowerCase();
+            getCurrentItem().getCategories().add(aCategory);
+            if (!categories.containsKey(aCategory)) {
+                categories.put(aCategory, 0);
             } else {
-                Integer score = categories.get(contentBuilder.toString());
-                categories.put(contentBuilder.toString(), score + 1);
+                Integer score = categories.get(aCategory);
+                categories.put(aCategory, score + 1);
             }
 
         }

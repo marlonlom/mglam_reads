@@ -10,39 +10,59 @@ import java.util.ArrayList;
  */
 public class FeedChannel implements Serializable {
 
+    /**
+     * Rss Feed items
+     */
     private ArrayList<FeedItem> items;
+
+    /**
+     * Rss Feed categories
+     */
     private ArrayList<String> categories;
 
+    /**
+     * Default constructor
+     */
     public FeedChannel() {
         super();
         this.setItems(new ArrayList<FeedItem>());
         this.setCategories(new ArrayList<String>());
     }
 
-    public FeedChannel(ArrayList<FeedItem> feedItems) {
-        this.setItems((ArrayList<FeedItem>) feedItems.clone());
-        this.setCategories(new ArrayList<String>());
-    }
-
-    public FeedChannel(ArrayList<FeedItem> feedItems, ArrayList<String> feedCategories) {
-        this.setItems((ArrayList<FeedItem>) feedItems.clone());
-        this.setCategories((ArrayList<String>) feedCategories.clone());
-    }
-
+    /**
+     * Returns feed items list
+     *
+     * @return items list
+     */
     public ArrayList<FeedItem> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<FeedItem> items) {
-        this.items = items;
+    /**
+     * Change feed feedItems list
+     *
+     * @param feedItems list to set
+     */
+    public void setItems(ArrayList<FeedItem> feedItems) {
+        this.items = feedItems;
     }
 
+    /**
+     * Returns feed items categories
+     *
+     * @return categories list
+     */
     public ArrayList<String> getCategories() {
         return categories;
     }
 
-    public void setCategories(ArrayList<String> categories) {
-        this.categories = categories;
+    /**
+     * Modifies feed categories list
+     *
+     * @param someCategories list to set
+     */
+    public void setCategories(ArrayList<String> someCategories) {
+        this.categories = someCategories;
     }
 
 }

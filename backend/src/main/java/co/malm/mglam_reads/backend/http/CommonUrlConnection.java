@@ -1,8 +1,8 @@
 package co.malm.mglam_reads.backend.http;
 
-import java.io.BufferedReader;
+import org.apache.commons.io.IOUtils;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -38,16 +38,9 @@ public abstract class CommonUrlConnection {
         //sets the read deadline to 10 Sec
         con.setReadTimeout(TIMEOUT);
 
-        int responseCode = con.getResponseCode();
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-
-        while ((inputLine = in.readLine()) != null) {
-            builder.append(inputLine);
-        }
-
-        in.close();
+        // writes content to string builder
+        String streamContent = IOUtils.toString(con.getInputStream());
+        builder.append(streamContent);
 
     }
 }

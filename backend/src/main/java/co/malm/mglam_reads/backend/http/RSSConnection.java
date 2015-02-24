@@ -5,6 +5,9 @@ import java.util.logging.Logger;
 import co.malm.mglam_reads.backend.rss.RssConfig;
 
 /**
+ * HTTP Connection implementation class for retrieving feed
+ * xml contents
+ *
  * @author marlonlom
  */
 public final class RSSConnection extends CommonUrlConnection {
