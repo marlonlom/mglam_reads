@@ -2,7 +2,7 @@ package co.malm.mglam_reads.backend.util;
 
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -82,7 +82,16 @@ public final class RssEnumUtil {
      * @return list of property keys
      */
     public ArrayList<String> getPropertyKeys() {
-        return (ArrayList<String>) Collections.list(props.propertyNames());
+
+        Enumeration<?> propertyNames = props.propertyNames();
+        ArrayList<String> propKeys = new ArrayList<>();
+
+        for (; propertyNames.hasMoreElements(); ) {
+            String propName = (String) propertyNames.nextElement();
+            propKeys.add(propName);
+        }
+
+        return propKeys;
     }
 
 }

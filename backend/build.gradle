@@ -34,7 +34,7 @@ appengine {
     appcfg {
         oauth2 = true
         noCookies = true
-        email = 'malm.gm@gmail.com'
+        email = "malm.gm@gmail.com"
     }
     endpoints {
         getClientLibsOnBuild = true

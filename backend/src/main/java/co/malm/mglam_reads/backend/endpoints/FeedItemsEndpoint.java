@@ -4,6 +4,9 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 
+import javax.inject.Named;
+
+import co.malm.mglam_reads.backend.model.ArticleContent;
 import co.malm.mglam_reads.backend.model.FeedChannel;
 import co.malm.mglam_reads.backend.services.RssFeedService;
 
@@ -26,6 +29,11 @@ public class FeedItemsEndpoint {
     @ApiMethod(name = "getFeed")
     public FeedChannel getChannel() {
         return service.obtainRssChannel();
+    }
+
+    @ApiMethod(name = "getArticleContents")
+    public ArticleContent getFullDescription(@Named("link") String articleLink) {
+        return service.obtainHtmlContent(articleLink);
     }
 
 }

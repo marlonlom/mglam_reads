@@ -44,7 +44,7 @@ public class FeedChannel implements Serializable {
      * @param feedItems list to set
      */
     public void setItems(ArrayList<FeedItem> feedItems) {
-        this.items = feedItems;
+        this.items = new ArrayList<FeedItem>(feedItems);
     }
 
     /**
@@ -62,7 +62,7 @@ public class FeedChannel implements Serializable {
      * @param someCategories list to set
      */
     public void setCategories(ArrayList<String> someCategories) {
-        this.categories = someCategories;
+        this.categories = new ArrayList<String>(someCategories);
     }
 
 }
