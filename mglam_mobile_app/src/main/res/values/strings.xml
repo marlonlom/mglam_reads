@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Mundo Glam</string>
+    <string name="app_detail">Mundo Glam</string>
     <string name="action_about">Acerca de</string>
+
+    <string name="endpoint_key">4/OWXgAo3Dxg_tOAVofHhs0ayu0WM_EKEsLTEbe8KkPks.wsQLGDrtKmEcaDn_6y0ZQNhmOmCxlwI</string>
 </resources>
