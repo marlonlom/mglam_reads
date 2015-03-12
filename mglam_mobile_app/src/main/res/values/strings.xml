@@ -3,5 +3,11 @@
     <string name="app_detail">Mundo Glam</string>
     <string name="action_about">Acerca de</string>
 
-    <string name="endpoint_key">4/OWXgAo3Dxg_tOAVofHhs0ayu0WM_EKEsLTEbe8KkPks.wsQLGDrtKmEcaDn_6y0ZQNhmOmCxlwI</string>
+    <string name="default_article_title">Article title</string>
+    <string name="default_article_detail">Pellentesque fermentum dolor. Aliquam quam lectus, facilisis auctor, ultrices ut, elementum vulputate, nunc.</string>
+    <string name="dummyTitleText">Nam venenatis purus tellus, sit amet tincidunt neque maximus vel.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="category_search_title">Categorías</string>
 </resources>

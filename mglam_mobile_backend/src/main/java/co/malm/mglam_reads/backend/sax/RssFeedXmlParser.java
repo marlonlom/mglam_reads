@@ -20,14 +20,14 @@ import co.malm.mglam_reads.backend.model.FeedChannel;
  *
  * @author marlonlom
  */
-public class RssFeedXMLParser {
+public class RssFeedXmlParser {
 
     /**
      * Logging utility
      *
      * @see java.util.logging.Logger
      */
-    private static final Logger LOGGER = Logger.getLogger(RssFeedXMLParser.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(RssFeedXmlParser.class.getName());
 
     /**
      * SAX default Parser factory instance
@@ -53,7 +53,7 @@ public class RssFeedXMLParser {
     /**
      * Default Constructor
      */
-    public RssFeedXMLParser() {
+    public RssFeedXmlParser() {
     }
 
     /**

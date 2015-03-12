@@ -10,14 +10,14 @@ import co.malm.mglam_reads.backend.configs.RssConfig;
  *
  * @author marlonlom
  */
-public final class RSSConnection extends CommonUrlConnection {
+public final class RssConnection extends CommonUrlConnection {
 
     /**
      * Logging utility
      *
      * @see java.util.logging.Logger
      */
-    private static final Logger LOGGER = Logger.getLogger(RSSConnection.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(RssConnection.class.getName());
 
     /**
      * Obtain the contents of an XML RSS Feed using its url

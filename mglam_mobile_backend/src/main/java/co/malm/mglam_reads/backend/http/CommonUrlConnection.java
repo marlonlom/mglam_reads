@@ -5,6 +5,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 
 /**
  * Abstract class for defining common HTTP operations (GET,POST) for retrieve
@@ -39,7 +40,7 @@ public abstract class CommonUrlConnection {
         con.setReadTimeout(TIMEOUT);
 
         // writes content to string builder
-        String streamContent = IOUtils.toString(con.getInputStream());
+        String streamContent = IOUtils.toString(con.getInputStream(), Charset.forName("UTF-8"));
         builder.append(streamContent);
 
     }

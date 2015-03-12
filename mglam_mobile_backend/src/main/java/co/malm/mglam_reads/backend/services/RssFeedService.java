@@ -1,10 +1,10 @@
 package co.malm.mglam_reads.backend.services;
 
-import co.malm.mglam_reads.backend.http.RSSConnection;
+import co.malm.mglam_reads.backend.http.RssConnection;
 import co.malm.mglam_reads.backend.http.WebPageConnection;
 import co.malm.mglam_reads.backend.model.ArticleContent;
 import co.malm.mglam_reads.backend.model.FeedChannel;
-import co.malm.mglam_reads.backend.sax.RssFeedXMLParser;
+import co.malm.mglam_reads.backend.sax.RssFeedXmlParser;
 import co.malm.mglam_reads.backend.util.ArticleHtmlParserUtil;
 
 /**
@@ -20,10 +20,10 @@ public final class RssFeedService {
      * @return rss channel
      */
     public FeedChannel obtainRssChannel() {
-        RssFeedXMLParser xmlParser = new RssFeedXMLParser();
+        RssFeedXmlParser xmlParser = new RssFeedXmlParser();
 
         /*retrieves rss feed xml contents*/
-        String retrievedFeed = RSSConnection.retrieveFeed();
+        String retrievedFeed = RssConnection.retrieveFeed();
 
         /*if not empty, parses xml content*/
         if (!retrievedFeed.isEmpty()) {
