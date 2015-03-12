@@ -130,6 +130,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     public void setupDrawerList(List<String> categories) {
+        categories.add(0, "Todos");
         NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(categories);
         adapter.setNavigationDrawerCallbacks(this);
         mDrawerList.setAdapter(adapter);
