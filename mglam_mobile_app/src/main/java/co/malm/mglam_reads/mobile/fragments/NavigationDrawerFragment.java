@@ -1,6 +1,5 @@
 package co.malm.mglam_reads.mobile.fragments;
 
-import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +17,9 @@ import java.util.List;
 
 import co.malm.mglam_reads.mobile.activities.R;
 import co.malm.mglam_reads.mobile.adapters.NavigationDrawerAdapter;
-import co.malm.mglam_reads.mobile.listeners.NavigationDrawerCallbacks;
+import co.malm.mglam_reads.mobile.events.SelectedCategoryEvent;
 import co.malm.mglam_reads.mobile.util.SharedPreferenceDataUtil;
+import de.greenrobot.event.EventBus;
 
 
 /**
@@ -29,20 +30,10 @@ import co.malm.mglam_reads.mobile.util.SharedPreferenceDataUtil;
 public class NavigationDrawerFragment extends Fragment {
 
     /**
-     * Remember the position of the selected item.
-     */
-    private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
-
-    /**
      * Per the design guidelines, you should show the drawer on launch until the user manually
      * expands it. This shared preference tracks this.
      */
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
-
-    /**
-     * A pointer to the current callbacks instance (the Activity).
-     */
-    private NavigationDrawerCallbacks mCallbacks;
 
     /**
      * Helper component that ties the action bar to the navigation drawer.
@@ -50,9 +41,9 @@ public class NavigationDrawerFragment extends Fragment {
     private ActionBarDrawerToggle mActionBarDrawerToggle;
 
     private DrawerLayout mDrawerLayout;
+    private NavigationDrawerAdapter mDrawerAdapter;
     private RecyclerView mDrawerList;
     private View mFragmentContainerView;
-    private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
@@ -68,13 +59,13 @@ public class NavigationDrawerFragment extends Fragment {
         String learnedDrawer = SharedPreferenceDataUtil.readFromPreferences(getActivity(), PREF_USER_LEARNED_DRAWER, "false");
         mUserLearnedDrawer = Boolean.valueOf(learnedDrawer);
         if (savedInstanceState != null) {
-            mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
@@ -95,7 +86,6 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-
                 if (!mUserLearnedDrawer) {
                     mUserLearnedDrawer = true;
                     SharedPreferenceDataUtil.saveToPreferences(getActivity(), PREF_USER_LEARNED_DRAWER, mUserLearnedDrawer + "");
@@ -130,64 +120,52 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     public void setupDrawerList(List<String> categories) {
-        categories.add(0, "Todos");
-        NavigationDrawerAdapter adapter = new NavigationDrawerAdapter(categories);
-        adapter.setNavigationDrawerCallbacks(this);
-        mDrawerList.setAdapter(adapter);
-        selectItem(mCurrentSelectedPosition);
+        categories.add(0, getString(R.string.default_all_categories));
+        mDrawerAdapter = new NavigationDrawerAdapter(getActivity(), categories);
+        mDrawerList.setAdapter(mDrawerAdapter);
+        highlightElement(0);
     }
 
-    private void selectItem(int position) {
-        mCurrentSelectedPosition = position;
-        if (mDrawerLayout != null) {
-            mDrawerLayout.closeDrawer(mFragmentContainerView);
-        }
-        if (mCallbacks != null) {
-            mCallbacks.onNavigationDrawerItemSelected(position);
-        }
-        ((NavigationDrawerAdapter) mDrawerList.getAdapter()).selectPosition(position);
-    }
-
-    public void openDrawer() {
-        mDrawerLayout.openDrawer(mFragmentContainerView);
-    }
 
     public void closeDrawer() {
         mDrawerLayout.closeDrawer(mFragmentContainerView);
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mCallbacks = (NavigationDrawerCallbacks) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
-        }
     }
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
 
-    public ActionBarDrawerToggle getActionBarDrawerToggle() {
-        return mActionBarDrawerToggle;
+    public void onEvent(SelectedCategoryEvent event) {
+        Log.d(this.getClass().getSimpleName(), "selected! " + event.getTitle());
+        highlightElement(event.getPosition());
     }
 
-    public DrawerLayout getDrawerLayout() {
-        return mDrawerLayout;
+    private void highlightElement(Integer position) {
+        final int viewCount = mDrawerList.getChildCount();
+        if (viewCount > 0) {
+            for (int curr = 0; curr < viewCount; curr++) {
+                View childView = mDrawerList.getChildAt(curr);
+                childView.setBackgroundResource(R.color.transparent);
+            }
+            View childView = mDrawerList.getChildAt(position);
+            childView.setBackgroundResource(R.color.colorAccent);
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mCallbacks = null;
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(STATE_SELECTED_POSITION, mCurrentSelectedPosition);
     }
 
     @Override

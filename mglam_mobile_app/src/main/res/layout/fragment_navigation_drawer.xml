@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="bottom|right"
-            android:background="#90000000"
+            android:background="@color/black_translucent"
             android:drawableRight="@android:drawable/ic_menu_search"
             android:gravity="center_vertical|right"
             android:maxLines="1"
@@ -41,7 +41,7 @@
             android:id="@+id/drawerList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_material_dark"
+            android:background="@color/black_translucent"
             android:clickable="true"
             android:scrollbars="vertical" />
     </FrameLayout>

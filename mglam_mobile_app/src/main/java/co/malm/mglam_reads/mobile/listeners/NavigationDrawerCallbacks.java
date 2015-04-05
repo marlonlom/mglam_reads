@@ -1,6 +1,8 @@
 package co.malm.mglam_reads.mobile.listeners;
 
 
+import android.view.View;
+
 /**
  * Interface declaration for navigation fragment callbacks
  *
@@ -12,5 +14,5 @@ public interface NavigationDrawerCallbacks {
      *
      * @param position
      */
-    void onNavigationDrawerItemSelected(int position);
+    void onNavigationDrawerItemSelected(View v, int position);
 }

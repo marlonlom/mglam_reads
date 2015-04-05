@@ -51,6 +51,11 @@ public class FeedItem implements Serializable {
         return title;
     }
 
+    /**
+     * Modifies Rss Feed item title
+     *
+     * @param title item title
+     */
     public void setTitle(String title) {
         this.title = title;
     }

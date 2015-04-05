@@ -21,7 +21,7 @@ public class RetrieveChannelAsyncTask extends AsyncTask<Void, Void, FeedChannel>
 
     private static final String TAG = RetrieveChannelAsyncTask.class.getSimpleName();
 
-    private Context context;
+    Context context;
 
     /**
      * Default constructor
@@ -29,7 +29,7 @@ public class RetrieveChannelAsyncTask extends AsyncTask<Void, Void, FeedChannel>
      * @param aContext
      */
     public RetrieveChannelAsyncTask(Context aContext) {
-        this.context = aContext;
+        this.setContext(aContext);
     }
 
     @Override
@@ -53,4 +53,7 @@ public class RetrieveChannelAsyncTask extends AsyncTask<Void, Void, FeedChannel>
         }
     }
 
+    public void setContext(Context context) {
+        this.context = context;
+    }
 }

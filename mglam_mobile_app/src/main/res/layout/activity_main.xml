@@ -14,19 +14,34 @@
         android:fitsSystemWindows="true"
         tools:context=".MainActivity">
 
+        <ImageView
+            android:id="@+id/welcome_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_below="@+id/toolbar_actionbar"
+            android:layout_centerHorizontal="true"
+            android:background="@color/background_material_dark"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_fashion_500" />
+
+        <fragment
+            android:id="@+id/fragment_articles_wrapper"
+            android:name="co.malm.mglam_reads.mobile.fragments.ArticlesListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/welcome_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/articles_list_card_horizontal_margin"
+            android:layout_marginRight="@dimen/articles_list_card_horizontal_margin"
+            android:layout_marginTop="@dimen/articles_list_margintop"
+            tools:layout="@layout/fragment_articles_list" />
+
         <include
             android:id="@+id/toolbar_actionbar"
             layout="@layout/toolbar_default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-        <include
-            android:id="@+id/welcome"
-            layout="@layout/fragment_welcome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar_actionbar"
-            android:padding="0dp" />
 
     </RelativeLayout>
 

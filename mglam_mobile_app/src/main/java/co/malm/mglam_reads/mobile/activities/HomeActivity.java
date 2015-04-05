@@ -2,15 +2,14 @@ package co.malm.mglam_reads.mobile.activities;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import co.malm.mglam_reads.mobile.asynctasks.RetrieveChannelAsyncTask;
+import co.malm.mglam_reads.mobile.application.MglamApplication;
 import co.malm.mglam_reads.mobile.events.RssChannelMessageEvent;
+import co.malm.mglam_reads.mobile.fragments.ArticlesListFragment;
 import co.malm.mglam_reads.mobile.fragments.NavigationDrawerFragment;
-import co.malm.mglam_reads.mobile.listeners.NavigationDrawerCallbacks;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -18,9 +17,10 @@ import de.greenrobot.event.EventBus;
  *
  * @author marlonlom
  */
-public class HomeActivity extends BaseActivity implements NavigationDrawerCallbacks {
+public class HomeActivity extends BaseActivity {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
+    private ArticlesListFragment mArticlesListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +28,17 @@ public class HomeActivity extends BaseActivity implements NavigationDrawerCallba
         setupAppBar(R.id.toolbar_actionbar);
         setActionBarIcon(R.drawable.ic_navigation_drawer);
         setupNavigationDrawer();
+        setupArticlesListFragment();
         prepareContents();
     }
-
 
     private void setupNavigationDrawer() {
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_drawer);
         mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+    }
+
+    private void setupArticlesListFragment() {
+        mArticlesListFragment = (ArticlesListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_articles_wrapper);
     }
 
     @Override
@@ -53,7 +57,6 @@ public class HomeActivity extends BaseActivity implements NavigationDrawerCallba
 
     protected void prepareContents() {
         EventBus.getDefault().register(this);
-        new RetrieveChannelAsyncTask(this).execute();
     }
 
     @Override
@@ -66,8 +69,9 @@ public class HomeActivity extends BaseActivity implements NavigationDrawerCallba
     }
 
     public void onEvent(RssChannelMessageEvent event) {
-        Log.d(this.getClass().getSimpleName(), "event: " + event.toString());
+        MglamApplication.getInstance().setRssData(event.getRssChannel());
         mNavigationDrawerFragment.setupDrawerList(event.getRssChannel().getCategories());
+        mArticlesListFragment.setupArticlesList(event.getRssChannel().getItems());
     }
 
     @Override
@@ -86,8 +90,4 @@ public class HomeActivity extends BaseActivity implements NavigationDrawerCallba
         super.onStop();
     }
 
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        Log.v(this.getClass().getSimpleName(), "item selected: " + position);
-    }
 }
