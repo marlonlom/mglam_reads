@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,7 +135,6 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     public void onEvent(SelectedCategoryEvent event) {
-        Log.d(this.getClass().getSimpleName(), "selected! " + event.getTitle());
         highlightElement(event.getPosition());
     }
 

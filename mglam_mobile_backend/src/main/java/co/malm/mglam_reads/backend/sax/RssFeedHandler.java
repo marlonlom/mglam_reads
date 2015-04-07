@@ -6,11 +6,13 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 
 import co.malm.mglam_reads.backend.configs.RssConfig;
 import co.malm.mglam_reads.backend.model.FeedChannel;
 import co.malm.mglam_reads.backend.model.FeedItem;
+import co.malm.mglam_reads.backend.util.DateDiffUtil;
 
 /**
  * Handler class for parse XML feed contents from remote feed url
@@ -112,6 +114,20 @@ public class RssFeedHandler extends DefaultHandler {
         }
     }
 
+    /**
+     * Performs update for items publish date attributes
+     */
+    private void prepareArticleShortPubdate() {
+        if (!getRssChannel().getItems().isEmpty()) {
+            final Date now = new Date();
+            for (FeedItem rssItem : getRssChannel().getItems()) {
+                String textDate = rssItem.getPubDate();
+                String diffDate = DateDiffUtil.getInstance().diff(textDate, now);
+                rssItem.setPubDate(diffDate);
+            }
+        }
+    }
+
     @Override
     public void startDocument() throws SAXException {
         categories = new HashMap<String, Integer>();
@@ -124,6 +140,8 @@ public class RssFeedHandler extends DefaultHandler {
     public void endDocument() throws SAXException {
 
         prepareCategoriesList();
+
+        prepareArticleShortPubdate();
 
     }
 

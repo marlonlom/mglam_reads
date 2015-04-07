@@ -3,7 +3,6 @@ package co.malm.mglam_reads.mobile.adapters;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,8 @@ import java.util.List;
 
 import co.malm.mglam_reads.backend.endpoints.mglamRssEndpoint.model.FeedItem;
 import co.malm.mglam_reads.mobile.activities.R;
-import co.malm.mglam_reads.mobile.application.MglamApplication;
+import co.malm.mglam_reads.mobile.events.SelectedArticleEvent;
+import de.greenrobot.event.EventBus;
 
 /**
  * Recycler view adapter class used for articles listing
@@ -55,7 +55,8 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
 
     private void highlightItemAt(int position) {
         FeedItem item = mArticles.get(position);
-        Log.d(MglamApplication.TAG, "selected article: " + item.getTitle());
+        SelectedArticleEvent event = new SelectedArticleEvent(item);
+        EventBus.getDefault().post(event);
     }
 
     @Override
