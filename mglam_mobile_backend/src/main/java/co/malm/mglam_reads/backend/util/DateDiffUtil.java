@@ -283,7 +283,7 @@ public final class DateDiffUtil {
             final String label_month = label_months[label_months.length - 1];
             if (diff_details[0].equalsIgnoreCase(label_month)) {
                 appliedLabel = appliedLabel.concat("es");
-            } else {
+            } else if (Integer.valueOf(diff_details[1]).intValue() > 1) {
                 appliedLabel = appliedLabel.concat("s");
             }
 
