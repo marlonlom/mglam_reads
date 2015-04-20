@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<!--
   ~ Copyright 2015 marlonlom
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,25 +14,12 @@
   ~ limitations under the License.
   -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/articles_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
-
-    <fragment
-        android:id="@+id/fragment_feed_list"
-        android:name="co.malm.mglam_reads.mobile.fragments.FeedListFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@layout/fragment_feed_list" />
-
-    <include
-        layout="@layout/toolbar_default"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-</FrameLayout>
+    android:background="@color/transparent"
+    android:clipToPadding="false"
+    android:paddingTop="?attr/actionBarSize"
+    tools:context="co.malm.mglam_reads.mobile.fragments.FeedListFragment" />

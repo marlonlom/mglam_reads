@@ -14,32 +14,19 @@
  * limitations under the License.
  */
 
-package co.malm.mglam_reads.mobile.events;
+package co.malm.mglam_reads.mobile.adapters.viewholder;
 
-import co.malm.mglam_reads.backend.endpoints.mglamRssEndpoint.model.FeedItem;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 /**
- * Event class for handling selected article from list
+ * View holder class for items list header view.
  *
  * @author marlonlom
  */
-public class SelectedArticleEvent {
+public class ItemsListHeaderViewHolder extends RecyclerView.ViewHolder {
 
-    private FeedItem articleItem;
-
-    public SelectedArticleEvent() {
-        super();
-    }
-
-    public SelectedArticleEvent(FeedItem articleItem) {
-        this.articleItem = articleItem;
-    }
-
-    public FeedItem getArticleItem() {
-        return articleItem;
-    }
-
-    public void setArticleItem(FeedItem articleItem) {
-        this.articleItem = articleItem;
+    public ItemsListHeaderViewHolder(View itemView) {
+        super(itemView);
     }
 }

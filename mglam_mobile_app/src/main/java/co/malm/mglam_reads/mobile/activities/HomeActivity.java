@@ -1,15 +1,30 @@
+/*
+ * Copyright 2015 marlonlom
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package co.malm.mglam_reads.mobile.activities;
 
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import co.malm.mglam_reads.mobile.application.MglamApplication;
+import co.malm.mglam_reads.mobile.asynctasks.RetrieveChannelAsyncTask;
 import co.malm.mglam_reads.mobile.events.RssChannelMessageEvent;
-import co.malm.mglam_reads.mobile.fragments.ArticlesListFragment;
-import co.malm.mglam_reads.mobile.fragments.NavigationDrawerFragment;
+import co.malm.mglam_reads.mobile.fragments.FeedListFragment;
+import co.malm.mglam_reads.mobile.models.FeedDataModel;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -19,35 +34,22 @@ import de.greenrobot.event.EventBus;
  */
 public class HomeActivity extends BaseActivity {
 
-    private NavigationDrawerFragment mNavigationDrawerFragment;
-    private ArticlesListFragment mArticlesListFragment;
+    private static final String TAG = HomeActivity.class.getSimpleName();
+    private FeedListFragment mFeedListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupAppBar(R.id.toolbar_actionbar);
+        setupAppBar(R.id.toolbar);
         setActionBarIcon(R.drawable.ic_navigation_drawer);
-        setupNavigationDrawer();
-        setupArticlesListFragment();
-        prepareContents();
-    }
-
-    private void setupNavigationDrawer() {
-        mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_drawer);
-        mNavigationDrawerFragment.setup(R.id.fragment_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-    }
-
-    private void setupArticlesListFragment() {
-        mArticlesListFragment = (ArticlesListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_articles_wrapper);
+        /*Obtain feed list fragment*/
+        mFeedListFragment = (FeedListFragment) getFragmentById(R.id.fragment_feed_list);
+        prepareFeedContents();
     }
 
     @Override
     public void onBackPressed() {
-        if (mNavigationDrawerFragment.isDrawerOpen()) {
-            mNavigationDrawerFragment.closeDrawer();
-        } else {
-            super.onBackPressed();
-        }
+        super.onBackPressed();
     }
 
     @Override
@@ -55,23 +57,26 @@ public class HomeActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
-    protected void prepareContents() {
+    protected void prepareFeedContents() {
         EventBus.getDefault().register(this);
+        if (FeedDataModel.getInstance().noData()) {
+            new RetrieveChannelAsyncTask(this).execute();
+        } else {
+            prepareFeedList();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            getMenuInflater().inflate(R.menu.menu_main, menu);
-            return true;
-        }
         return super.onCreateOptionsMenu(menu);
     }
 
     public void onEvent(RssChannelMessageEvent event) {
-        MglamApplication.getInstance().setRssData(event.getRssChannel());
-        mNavigationDrawerFragment.setupDrawerList(event.getRssChannel().getCategories());
-        mArticlesListFragment.setupArticlesList(event.getRssChannel().getItems());
+        if (FeedDataModel.getInstance().noData()) {
+            FeedDataModel.getInstance().setCategories(event.getRssChannel().getCategories());
+            FeedDataModel.getInstance().setFeedItems(event.getRssChannel().getItems());
+        }
+        prepareFeedList();
     }
 
     @Override
@@ -88,6 +93,10 @@ public class HomeActivity extends BaseActivity {
     protected void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
+    }
+
+    private void prepareFeedList() {
+        mFeedListFragment.initRecyclerView();
     }
 
 }

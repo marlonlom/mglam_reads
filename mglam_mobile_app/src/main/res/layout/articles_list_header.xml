@@ -14,16 +14,10 @@
   ~ limitations under the License.
   -->
 
-<resources>
-
-    <style name="AppTheme" parent="AppTheme.Base" />
-
-    <!--Main application theme-->
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-
-</resources>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/welcome_image"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/flexible_space_image_height"
+    android:layout_marginBottom="@dimen/articles_list_margintop"
+    android:scaleType="centerCrop"
+    android:src="@drawable/img_fashion_500" />

@@ -6,13 +6,18 @@
     <!-- application toolbar-->
     <dimen name="toolbar_elevation">4dp</dimen>
 
+    <dimen name="flexible_space_image_height">240dp</dimen>
+    <dimen name="margin_standard">16dp</dimen>
+    <dimen name="header_bar_height">72dp</dimen>
+
     <!-- navigation drawer-->
-    <dimen name="navigation_drawer_width">320dp</dimen>
+    <dimen name="navigation_drawer_width">280dp</dimen>
     <dimen name="navigation_drawer_horizontal_margin">16dp</dimen>
     <dimen name="navigation_drawer_layout_height">48dp</dimen>
 
     <!-- articles list-->
     <dimen name="articles_list_margintop">-48dp</dimen>
     <dimen name="articles_list_card_horizontal_margin">16dp</dimen>
+    <dimen name="articles_list_card_vertical_margin">4dp</dimen>
     <dimen name="articles_list_card_height">128dp</dimen>
 </resources>
