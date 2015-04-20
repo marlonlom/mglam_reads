@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="mglam_mobile_backend.mglam_mobile_backend-android-endpoints">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/mglam_mobile_backend/build/libs/mglam_mobile_backend-android-endpoints.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
