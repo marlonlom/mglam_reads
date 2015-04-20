@@ -16,7 +16,7 @@
 
 package co.malm.mglam_reads.mobile.events;
 
-import co.malm.mglam_reads.backend.endpoints.mglamRssEndpoint.model.FeedChannel;
+import co.malm.mglam_reads.backend.endpoints.mgReadingsEndpoint.model.FeedChannel;
 
 /**
  * Event Implementation for handling Rss Feed channel contents

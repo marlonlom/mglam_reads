@@ -14,27 +14,26 @@
  * limitations under the License.
  */
 
-package co.malm.mglam_reads.mobile.adapters.viewholder;
+package co.malm.mglam_reads.mobile.listeners;
 
-import android.graphics.PorterDuff;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
-
-import co.malm.mglam_reads.mobile.activities.R;
 
 /**
- * View holder class for items list header view.
- *
  * @author marlonlom
  */
-public class ItemsListHeaderViewHolder extends RecyclerView.ViewHolder {
+public abstract class FeedListScrollListener extends RecyclerView.OnScrollListener {
 
-    ImageView mHeaderImage;
+    private static final int HIDE_THRESHOLD = 20;
 
-    public ItemsListHeaderViewHolder(View itemView) {
-        super(itemView);
-        mHeaderImage = (ImageView) itemView.findViewById(R.id.welcome_image);
-        mHeaderImage.getDrawable().setColorFilter(R.color.colorPrimaryDark, PorterDuff.Mode.DARKEN);
+    private int scrolledDistance = 0;
+    private boolean controlsVisible = true;
+
+    @Override
+    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        super.onScrolled(recyclerView, dx, dy);
     }
+
+    public abstract void onHide();
+
+    public abstract void onShow();
 }

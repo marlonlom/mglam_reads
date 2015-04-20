@@ -16,7 +16,7 @@
 
 package co.malm.mglam_reads.mobile.events;
 
-import co.malm.mglam_reads.backend.endpoints.mglamRssEndpoint.model.FeedItem;
+import co.malm.mglam_reads.backend.endpoints.mgReadingsEndpoint.model.FeedItem;
 
 /**
  * Event class for handling selected article from list

@@ -16,6 +16,8 @@
 
 package co.malm.mglam_reads.mobile.activities;
 
+import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -41,6 +43,15 @@ public abstract class BaseActivity extends ActionBarActivity {
 
     protected Fragment getFragmentById(int fragmentId) {
         return getSupportFragmentManager().findFragmentById(fragmentId);
+    }
+
+    public int getToolbarHeight(Context context) {
+        final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(
+                new int[]{R.attr.actionBarSize});
+        int toolbarHeight = (int) styledAttributes.getDimension(0, 0);
+        styledAttributes.recycle();
+
+        return toolbarHeight;
     }
 
     protected abstract int getLayoutResource();

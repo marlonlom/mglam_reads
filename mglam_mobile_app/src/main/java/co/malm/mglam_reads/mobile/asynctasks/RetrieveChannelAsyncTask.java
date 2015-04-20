@@ -22,8 +22,8 @@ import android.util.Log;
 
 import java.io.IOException;
 
-import co.malm.mglam_reads.backend.endpoints.mglamRssEndpoint.MglamRssEndpoint;
-import co.malm.mglam_reads.backend.endpoints.mglamRssEndpoint.model.FeedChannel;
+import co.malm.mglam_reads.backend.endpoints.mgReadingsEndpoint.MgReadingsEndpoint;
+import co.malm.mglam_reads.backend.endpoints.mgReadingsEndpoint.model.FeedChannel;
 import co.malm.mglam_reads.mobile.events.RssChannelMessageEvent;
 import co.malm.mglam_reads.mobile.util.EndpointConnectionUtil;
 import de.greenrobot.event.EventBus;
@@ -52,7 +52,7 @@ public class RetrieveChannelAsyncTask extends AsyncTask<Void, Void, FeedChannel>
     protected FeedChannel doInBackground(Void... params) {
         FeedChannel channel = null;
         try {
-            final MglamRssEndpoint endpoint = EndpointConnectionUtil.obtainCloudEndpoint();
+            final MgReadingsEndpoint endpoint = EndpointConnectionUtil.obtainCloudEndpoint();
             channel = endpoint.getChannel().execute();
         } catch (IOException e) {
             Log.e(TAG, e.getMessage());

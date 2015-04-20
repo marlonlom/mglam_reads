@@ -19,7 +19,7 @@ package co.malm.mglam_reads.mobile.models;
 import java.util.Collections;
 import java.util.List;
 
-import co.malm.mglam_reads.backend.endpoints.mglamRssEndpoint.model.FeedItem;
+import co.malm.mglam_reads.backend.endpoints.mgReadingsEndpoint.model.FeedItem;
 
 /**
  * Data Model class for storing rss channel articles data

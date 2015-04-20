@@ -21,5 +21,4 @@
     android:layout_height="match_parent"
     android:background="@color/transparent"
     android:clipToPadding="false"
-    android:paddingTop="?attr/actionBarSize"
     tools:context="co.malm.mglam_reads.mobile.fragments.FeedListFragment" />

@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import co.malm.mglam_reads.backend.endpoints.mglamRssEndpoint.model.FeedItem;
+import co.malm.mglam_reads.backend.endpoints.mgReadingsEndpoint.model.FeedItem;
 import co.malm.mglam_reads.mobile.activities.R;
 import co.malm.mglam_reads.mobile.adapters.viewholder.ItemsListContentViewHolder;
 import co.malm.mglam_reads.mobile.adapters.viewholder.ItemsListHeaderViewHolder;
